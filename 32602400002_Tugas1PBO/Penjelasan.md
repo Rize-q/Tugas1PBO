@@ -1,3 +1,8 @@
+```
+Nama: Fatchur Rizqi
+NIM: 32602400002
+```
+
 ## PENJELASAN KESALAHAN DAN PERBAIKANNYA
 | No | Class       | Kesalahan                                                                 | Perbaikan                                                     |
 |----|-------------|---------------------------------------------------------------------------|---------------------------------------------------------------|
@@ -15,8 +20,93 @@
 | 12 | TestAccess  | `m2.MakhlukHidup("Kuda");`, constructor tidak bisa dipanggil seperti method. | Jika ingin ubah nama, gunakan setter: `m2.setNama("Kuda");` |
 | 13 | TestAccess  | `m3.setUmur(-10);` sebelumnya salah karena method `setUmur` terdefinisi dengan `String`. | Setelah perbaikan, tidak perlu ada perubahan pada baris ini.<br>Walaupun inputnya -10, nanti akan ada validasi agar umur tidak menerima nilai negatif. |
 
+## Kode Program Setelah Perbaikan
+> MakhlukHidup.java
+```java
+public class MakhlukHidup {
+    
+    private String nama;       
+    private String jenis;
+    public double berat = -1.0;  
+    private int umur;
+
+
+    public MakhlukHidup() {
+        this.nama = "Unknown";
+        this.jenis = "Unknown";
+        this.umur = 15;
+        this.berat = 10.0;
+    }
+
+    public MakhlukHidup(String nama) { 
+        this.nama = nama;
+        this.jenis = "Salah";
+        this.umur = 12;
+        this.berat = 170.0;
+    }
+
+    public MakhlukHidup(String nama, String jenis, int umur, double berat) { 
+        this.nama = nama;  
+        this.jenis = jenis; 
+        this.umur = umur;
+        this.berat = berat;
+    }
+
+    public MakhlukHidup(MakhlukHidup other) {
+        this.nama = other.nama; 
+        this.jenis = other.jenis; 
+        this.umur = other.umur; 
+        this.berat = other.berat;
+    }
+
+
+    public void setUmur(int umur) { 
+        if (umur > 0)
+            this.umur = umur;
+    }
+
+    public void setNama(String nama) {
+        this.nama = nama; 
+    }
+
+    public String getInfo() { 
+        return "Nama=" + nama + ", Jenis=" + jenis 
+        + ", Umur=" + umur + ", Berat=" + berat;
+    }
+}
+```
+> TestAccess.java
+```java
+public class TestAccess {
+    public static void main(String[] args) {
+        MakhlukHidup m = new MakhlukHidup();
+        
+        m.setNama("Kucing");  
+        
+        MakhlukHidup m2 = new MakhlukHidup("Harimau", "Hewan", 3, 120.0);
+        
+        MakhlukHidup m3 = new MakhlukHidup(m2);
+ 
+        System.out.println(m.getInfo());
+        
+        System.out.println(m2.getInfo());
+        
+        m2.setNama("Kuda"); 
+                
+        System.out.println(m2.getInfo());
+        
+        m3.setUmur(-10); 
+        
+        System.out.println(m3.getInfo());
+
+        
+    }
+}
+```
 ## Hasil Output Setelah Perbaikan
-> Nama=Kucing, Jenis=Unknown, Umur=15, Berat=10.0<br>
-> Nama=Harimau, Jenis=Hewan, Umur=3, Berat=120.0<br>
-> Nama=Kuda, Jenis=Hewan, Umur=3, Berat=120.0<br>
-> Nama=Harimau, Jenis=Hewan, Umur=3, Berat=120.0<br>
+```
+Nama=Kucing, Jenis=Unknown, Umur=15, Berat=10.0
+Nama=Harimau, Jenis=Hewan, Umur=3, Berat=120.0
+Nama=Kuda, Jenis=Hewan, Umur=3, Berat=120.0
+Nama=Harimau, Jenis=Hewan, Umur=3, Berat=120.0
+```
